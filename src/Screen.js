@@ -204,9 +204,9 @@ class Screen extends React.Component{
 	render(){
 		return(
 			<SafeAreaView
-				style={generalStyle.mainContainer}>
+				style={generalStyle.mainContainer} forceInset={{ top: 'always' }}>
 				<View
-					style={generalStyle.childContainer}>
+					style={[generalStyle.childContainer]}>
 						<Text
 							style={generalStyle.numberView}>{this.props.button.showText}</Text>
 				</View>

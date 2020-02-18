@@ -96,6 +96,11 @@ const buttonPressed = (state = initialState, action) => {
             		pressedArr[lastIndex] = action.payload;
             	} else if(!operatorSign.includes(action.payload) && !operatorSign.includes(pressedArr[lastIndex]) && pressedArr.length > 0){
             		if(pressedArr.length > 0){
+            			if(action.payload == "."){
+            				if(pressedArr[lastIndex].indexOf(action.payload) !== -1){
+            					action.payload = "";
+            				}
+            			}
             			pressedArr[lastIndex] = pressedArr[lastIndex]+action.payload;
             			showText = pressedArr[lastIndex];
             		}

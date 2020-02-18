@@ -5,12 +5,9 @@ import {
 export const generalStyle = StyleSheet.create({
   	mainContainer:{
 	    padding: 10,
-	    display: "flex",
-	    flexDirection: "column",
-	    flexWrap:"nowrap",
+      flex:1,
   	},
   	childContainer:{
-  		flex: 1,
   		flexBasis: "50%",
   		flexGrow: 0,
   	},
@@ -65,10 +62,9 @@ export const generalStyle = StyleSheet.create({
   		bottom:0,
   		right:0,
   		position: "absolute",
-  		marginBottom:20,
-  		marginRight:20,
   		fontSize: 60,
-  		fontWeight:"bold"
+  		fontWeight:"bold",
+      padding:20,
   	}
 
 
