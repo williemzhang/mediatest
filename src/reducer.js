@@ -14,7 +14,9 @@ const buttonPressed = (state = initialState, action) => {
 		case BUTTON_PRESS:
             var pressedArr = Object.assign([],state.pressedButton);
             var lastIndex = 0;
-        	var operatorSign = ['/','-','*','+'];
+            var numberRegex = new RegExp("/^[.]|[0-9]$/");
+            var operatorRegex = new RegExp("^([\+]|[-]|[\*]|[\/])$");
+        	//var operatorSign = ['/','-','*','+'];
 
             if(pressedArr.length > 0){
             	lastIndex = pressedArr.length - 1;
@@ -25,14 +27,14 @@ const buttonPressed = (state = initialState, action) => {
             	pressedArr = [];
             	showText = "0";
             } else if(action.payload == "="){
-            	if(operatorSign.includes(pressedArr[lastIndex])){
+            	if(operatorRegex.test(pressedArr[lastIndex])){
             		pressedArr.splice(lastIndex,1);
             	}
             	var total = 0;
             	var lastValue = 0;
             	var subtotal = 0;
             	if(pressedArr.length > 1){
-            		if(operatorSign.includes(pressedArr[lastIndex-1])){
+            		if(operatorRegex.test(pressedArr[lastIndex-1])){
             			switch(pressedArr[lastIndex-1]){
             				case "/":
         						var newVal = parseFloat(pressedArr[lastIndex-2] / pressedArr[lastIndex]);
@@ -92,9 +94,9 @@ const buttonPressed = (state = initialState, action) => {
             	
             	pressedArr = [];
             } else {
-            	if(operatorSign.includes(action.payload) && operatorSign.includes(pressedArr[lastIndex]) && pressedArr.length > 0){
+            	if(operatorRegex.test(action.payload) && operatorRegex.test(pressedArr[lastIndex]) && pressedArr.length > 0){
             		pressedArr[lastIndex] = action.payload;
-            	} else if(!operatorSign.includes(action.payload) && !operatorSign.includes(pressedArr[lastIndex]) && pressedArr.length > 0){
+            	} else if(numberRegex.test(action.payload) && numberRegex.test(pressedArr[lastIndex]) && pressedArr.length > 0){
             		if(pressedArr.length > 0){
             			if(action.payload == "."){
             				if(pressedArr[lastIndex].indexOf(action.payload) !== -1){
@@ -105,12 +107,12 @@ const buttonPressed = (state = initialState, action) => {
             			showText = pressedArr[lastIndex];
             		}
             	} else {
-            		if(operatorSign.includes(action.payload)){
+            		if(operatorRegex.test(action.payload)){
             			if(pressedArr.length == 0){
             				pressedArr.push("0");
             				showText = "0";
             			} else if(pressedArr.length > 2){
-            				if(operatorSign.includes(pressedArr[lastIndex-1])){
+            				if(operatorRegex.test(pressedArr[lastIndex-1])){
 	            				var newVal = 0;
 		        				switch(pressedArr[lastIndex-1]){
 		        					case "*":
